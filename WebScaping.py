@@ -14,7 +14,7 @@ precio = re.sub("\$|\,|","", precioInicio_text)
 print(precio)
 precioInicial = float(precio)
 
-precioDeseado = 2600
+precioDeseado = 2700
 
 if precioInicial < precioDeseado:
     print("Hay Oferta")
