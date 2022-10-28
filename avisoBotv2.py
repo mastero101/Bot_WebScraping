@@ -11,14 +11,14 @@ from time import sleep
 from origamibot import OrigamiBot as Bot
 from origamibot.listener import Listener
 
-
+print("Bot Start")
 url = requests.get("https://www.cyberpuerta.mx/Computo-Hardware/Componentes/Procesadores/Procesadores-para-PC/Procesador-AMD-Ryzen-5-5600-S-AM4-3-50GHz-Six-Core-32MB-L3-Cache-con-Disipador-Wraith-Stealth.html")
 
 soup = BeautifulSoup(url.content, "html.parser")
 resultado = soup.find("span", {"class": "priceText"})
 precioInicio_text = resultado.text
 precio = re.sub("\$|\,|","", precioInicio_text)
-print(precio)
+print("Actual Price: $" + precio)
 precioInit = float(precio)
 
 class BotsCommands:
@@ -42,8 +42,10 @@ class BotsCommands:
     def price(self, message, price: float): # /add expected Price
         if precioInit < price:
             self.bot.send_message(message.chat.id,f"Offer, The price downs to:\n {'$ '+str(precioInit)}\nLink: https://www.cyberpuerta.mx/Computo-Hardware/Componentes/Procesadores/Procesadores-para-PC/Procesador-AMD-Ryzen-5-5600-S-AM4-3-50GHz-Six-Core-32MB-L3-Cache-con-Disipador-Wraith-Stealth.html")
+            print(precioInit)
         else:
             self.bot.send_message(message.chat.id,"No Offer")
+            print("No offer")
 
     def url(self, message, urlGet: str): # /add url
         self.bot.send_message(message.chat.id,"URL Guardada")
