@@ -1,9 +1,23 @@
 from cgitb import text
 import requests
-from WebScaping import precioInicial
-from WebScaping import precioDeseado
+import re
+import string
+from bs4 import BeautifulSoup
+import time
+import webbrowser
 
-import requests
+
+url = requests.get("https://www.cyberpuerta.mx/Computo-Hardware/Componentes/Procesadores/Procesadores-para-PC/Procesador-AMD-Ryzen-5-5600-S-AM4-3-50GHz-Six-Core-32MB-L3-Cache-con-Disipador-Wraith-Stealth.html")
+
+soup = BeautifulSoup(url.content, "html.parser")
+resultado = soup.find("span", {"class": "priceText"})
+precioInicio_text = resultado.text
+precio = re.sub("\$|\,|","", precioInicio_text)
+print(precio)
+precioInicial = float(precio)
+
+precioDeseado = 2700
+
 
 def telegram_bot_sendtext(bot_message):
 
@@ -15,10 +29,8 @@ def telegram_bot_sendtext(bot_message):
 
     return response.json()
 
-
 if precioInicial < precioDeseado:
     test =  telegram_bot_sendtext(f"Oferta, bajo el precio a: {'$ '+str(precioInicial)}\nEnlace: https://www.cyberpuerta.mx/Computo-Hardware/Componentes/Procesadores/Procesadores-para-PC/Procesador-AMD-Ryzen-5-5600-S-AM4-3-50GHz-Six-Core-32MB-L3-Cache-con-Disipador-Wraith-Stealth.html")
-
 else:
     test = telegram_bot_sendtext("No Oferta")
 
