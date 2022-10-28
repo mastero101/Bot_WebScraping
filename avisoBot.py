@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import time
 import webbrowser
 
+#fusion
 def telegram_bot_sendtext(bot_message):
 
     bot_token = '5627768852:AAH5afLkApzk_l3r8NQWqDtaPUkHAMeE-bA'
