@@ -31,6 +31,8 @@ class BotsCommands:
             'Hello user!\nThis is a Price Checker for your favorite store\n /url "link" to add the link to the article \n /price "XXXX" to set the exprected price')
 
     def url(self, message, urlGet: str): # /Add url
+        global urlView
+        urlView = urlGet
         url = requests.get(urlGet)
         soup = BeautifulSoup(url.content, "html.parser")
         resultado = soup.find("span", {"class": "priceText"})
@@ -43,7 +45,7 @@ class BotsCommands:
 
     def price(self, message, price: float): # /Add expected Price
         if precioInit < price:
-            self.bot.send_message(message.chat.id,f"Offer, The price downs to:\n {'$ '+str(precioInit)}\nLink: https://www.cyberpuerta.mx/Computo-Hardware/Componentes/Procesadores/Procesadores-para-PC/Procesador-AMD-Ryzen-5-5600-S-AM4-3-50GHz-Six-Core-32MB-L3-Cache-con-Disipador-Wraith-Stealth.html")
+            self.bot.send_message(message.chat.id,f"Offer, The price downs to:\n {'$ '+str(precioInit)}\nLink: {str(urlView)}")
             print(precioInit)
         else:
             self.bot.send_message(message.chat.id,"No Offer")
