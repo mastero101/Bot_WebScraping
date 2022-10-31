@@ -28,7 +28,7 @@ class BotsCommands:
     def start(self, message):   # /start command
         self.bot.send_message(
             message.chat.id,
-            'Hello user!\nThis is a Price Checker for your favorite store\n /url "link" to add the link to the article \n /price "XXXX" to set the exprected price')
+            'Hello user!\nThis is a Price Checker for your favorite store\n /url "link" to add the link to the article \n /price "XXXX" to set the expected price')
 
     def url(self, message, urlGet: str): # /Add url
         global urlView
