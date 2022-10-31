@@ -1,5 +1,6 @@
 from cgitb import text
 from random import expovariate
+from timeit import repeat
 import requests
 import re
 import string
@@ -44,6 +45,10 @@ class BotsCommands:
         self.bot.send_message(message.chat.id,"Item Saved")
 
     def price(self, message, price: float): # /Add expected Price
+        global priceE
+        priceE = price
+        global messageE 
+        messageE = message.chat.id
         if precioInit < price:
             self.bot.send_message(message.chat.id,f"Offer, The price downs to:\n {'$ '+str(precioInit)}\nLink: {str(urlView)}")
             print(precioInit)
@@ -53,6 +58,7 @@ class BotsCommands:
 
     def _not_a_command(self):   # This method not considered a command
         print('I am not a command')
+
 
 if __name__ == '__main__':
     bot_token = '5627768852:AAH5afLkApzk_l3r8NQWqDtaPUkHAMeE-bA' # We can fix the bot token here
@@ -65,6 +71,11 @@ if __name__ == '__main__':
     bot.start()   # start bot's threads
     while True:
         sleep(1)
+        sleep(3600)
+        if precioInit < priceE and priceE > 0:
+            bot.send_message(messageE,f"Offer, The price downs to:\n {'$ '+str(precioInit)}\nLink: {str(urlView)}")
+        else:
+            bot.send_message(messageE,"No Offer")
         # Can also do some useful work i main thread
         # Like autoposting to channels for example
 
