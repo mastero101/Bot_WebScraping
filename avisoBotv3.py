@@ -29,7 +29,7 @@ class BotsCommands:
     def start(self, message):   # /start command
         self.bot.send_message(
             message.chat.id,
-            'Hello user!\nThis is a Price Checker for your favorite store\n /url "link" to add the link to the article \n /price "XXXX" to set the expected price \n /stock "link" to check stock')
+            'Hello user!\nThis is a Price Checker for your favorite store\n /url "link" to add the link to the article \n /price "XXXX" to set the expected price \n /stock "link" to check stock \n /time "XX" to set timer on seconds (3600 = 1 hr) \n All need to be set on sequence or the bot will fail')
 
     def url(self, message, urlGet: str): # /Add url
         global urlView
@@ -72,7 +72,7 @@ class BotsCommands:
     def time(self, message, time: float): # /Add Time Check
         global timer
         timer = time
-        self.bot.send_message(message.chat.id,f"Time Set on {time} minutes")
+        self.bot.send_message(message.chat.id,f"Time Set on {time} seconds")
 
     def _not_a_command(self):   # This method not considered a command
         print('I am not a command')
@@ -88,14 +88,11 @@ if __name__ == '__main__':
 
     bot.start()   # start bot's threads
     while True:
-        sleep(1)
         sleep(120)
+        sleep(timer)
         if precioInit < priceE and priceE > 0:
             bot.send_message(messageE,f"Offer, The price downs to:\n {'$ '+str(precioInit)}\nLink: {str(urlView)}")
             bot.send_message(messageE,str(stock))
         else:
             bot.send_message(messageE,"No Offer")
-        # Can also do some useful work i main thread
-        # Like autoposting to channels for example
-
 
